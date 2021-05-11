@@ -14,6 +14,10 @@
 		"AzureBlobStorage2_connectionString": {
 			"type": "secureString",
 			"metadata": "Secure string for 'connectionString' of 'AzureBlobStorage2'"
+		},
+		"AzureBlobStorage3_connectionString": {
+			"type": "secureString",
+			"metadata": "Secure string for 'connectionString' of 'AzureBlobStorage3'"
 		}
 	},
 	"variables": {
@@ -272,6 +276,100 @@
 			]
 		},
 		{
+			"name": "[concat(parameters('factoryName'), '/Json3')]",
+			"type": "Microsoft.DataFactory/factories/datasets",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"linkedServiceName": {
+					"referenceName": "AzureBlobStorage3",
+					"type": "LinkedServiceReference"
+				},
+				"annotations": [],
+				"type": "Json",
+				"typeProperties": {
+					"location": {
+						"type": "AzureBlobStorageLocation",
+						"fileName": "example_2.json",
+						"container": "sourceblob"
+					}
+				},
+				"schema": {
+					"type": "object",
+					"properties": {
+						"quiz": {
+							"type": "object",
+							"properties": {
+								"sport": {
+									"type": "object",
+									"properties": {
+										"q1": {
+											"type": "object",
+											"properties": {
+												"question": {
+													"type": "string"
+												},
+												"options": {
+													"type": "array",
+													"items": {
+														"type": "string"
+													}
+												},
+												"answer": {
+													"type": "string"
+												}
+											}
+										}
+									}
+								},
+								"maths": {
+									"type": "object",
+									"properties": {
+										"q1": {
+											"type": "object",
+											"properties": {
+												"question": {
+													"type": "string"
+												},
+												"options": {
+													"type": "array",
+													"items": {
+														"type": "string"
+													}
+												},
+												"answer": {
+													"type": "string"
+												}
+											}
+										},
+										"q2": {
+											"type": "object",
+											"properties": {
+												"question": {
+													"type": "string"
+												},
+												"options": {
+													"type": "array",
+													"items": {
+														"type": "string"
+													}
+												},
+												"answer": {
+													"type": "string"
+												}
+											}
+										}
+									}
+								}
+							}
+						}
+					}
+				}
+			},
+			"dependsOn": [
+				"[concat(variables('factoryId'), '/linkedServices/AzureBlobStorage3')]"
+			]
+		},
+		{
 			"name": "[concat(parameters('factoryName'), '/AzureBlobStorage1')]",
 			"type": "Microsoft.DataFactory/factories/linkedServices",
 			"apiVersion": "2018-06-01",
@@ -293,6 +391,19 @@
 				"type": "AzureBlobStorage",
 				"typeProperties": {
 					"connectionString": "[parameters('AzureBlobStorage2_connectionString')]"
+				}
+			},
+			"dependsOn": []
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/AzureBlobStorage3')]",
+			"type": "Microsoft.DataFactory/factories/linkedServices",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"annotations": [],
+				"type": "AzureBlobStorage",
+				"typeProperties": {
+					"connectionString": "[parameters('AzureBlobStorage3_connectionString')]"
 				}
 			},
 			"dependsOn": []

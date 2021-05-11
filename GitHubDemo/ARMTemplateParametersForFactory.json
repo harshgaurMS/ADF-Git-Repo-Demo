@@ -10,6 +10,9 @@
 		},
 		"AzureBlobStorage2_connectionString": {
 			"value": ""
+		},
+		"AzureBlobStorage3_connectionString": {
+			"value": ""
 		}
 	}
 }
